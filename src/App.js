@@ -5,6 +5,7 @@ import './App.css';
 
 // Import components
 import BookList from './components/BookList';
+import AddBook from './components/AddBook';
 
 // Setup Apollon Client
 const client = new ApolloClient({
@@ -18,6 +19,7 @@ class App extends Component {
         <div className="App">
           <h1>Billy's Reading List</h1>
           <BookList />
+          <AddBook />
         </div>
       </ApolloProvider>
     );
