@@ -1,23 +1,47 @@
 import React, { Component } from 'react';
-import { gql } from 'apollo-boost';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
+import { getAuthorsQuery, addBookMutation } from './../queries/queries';
 import "./AddBook.css";
 
-// Create the get books query
-const getAuthorsQuery = gql`
-    {
-        authors {
-            name
-            id
-        }
-    }
-`;
+
 
 class AddBook extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            genre: '',
+            authorId: ''
+        }
+    }
+
+    onChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    submitForm = (e) => {
+        e.preventDefault();
+        const result = this.props.addBook({
+            variables: {
+                name: this.state.name,
+                genre: this.state.genre,
+                authorId: this.state.authorId
+            }
+        }).then(x => {
+            this.setState({
+                name: '',
+                genre: '',
+                authorId: ''
+            });
+        });
+    }
+
     displayAuthors = () => {
         // Get the authors
-        const data = this.props.data;
+        const data = this.props.authors;
         if (data.loading) {
             return <option>Loading authors...</option>
         } else {
@@ -30,22 +54,20 @@ class AddBook extends Component {
     };
 
     render() {
-
-
         // Render form
         return (
-            <form id="add-book">
+            <form id="add-book" onSubmit={this.submitForm}>
                 <div className="field">
                     <label>Book name:</label>
-                    <input type="text" />
+                    <input onChange={this.onChange} name="name" type="text" />
                 </div>
                 <div className="field">
                     <label>Genre:</label>
-                    <input type="text" />
+                    <input onChange={this.onChange} name="genre" type="text" />
                 </div>
                 <div className="field">
                     <label>Author name:</label>
-                    <select>
+                    <select onChange={this.onChange} name="authorId">
                         {this.displayAuthors()}
                     </select>
                 </div>
@@ -55,4 +77,7 @@ class AddBook extends Component {
     }
 }
 
-export default graphql(getAuthorsQuery)(AddBook);
+export default compose(
+    graphql(getAuthorsQuery, { name: "authors" }),
+    graphql(addBookMutation, { name: "addBook" })
+)(AddBook);
