@@ -8,7 +8,7 @@ import BookList from './components/BookList';
 import AddBook from './components/AddBook';
 
 // Retrieve endpoint
-const endpoint = process.env.GRAPHQL_ENDPOINT || 'http://localhost:4000/graphql';
+const endpoint = (process.env.NODE_ENV === 'development' ? 'http://localhost:4000/graphql' : 'https://graphql-sample-api.herokuapp.com/graphql');
 
 // Setup Apollon Client and use he end
 const client = new ApolloClient({
