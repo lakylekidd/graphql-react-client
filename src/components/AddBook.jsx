@@ -10,7 +10,7 @@ class AddBook extends Component {
         this.state = {
             name: '',
             genre: '',
-            authorId: ''
+            authorId: 0
         }
     }
 
@@ -34,7 +34,7 @@ class AddBook extends Component {
             this.setState({
                 name: '',
                 genre: '',
-                authorId: ''
+                authorId: 0
             });
         });
     }
@@ -47,7 +47,7 @@ class AddBook extends Component {
         } else {
             return data.authors.map(author => {
                 return (
-                    <option key={author.id} value={author.id}>{author.name}</option>
+                    <option key={author.id}>{author.name}</option>
                 )
             })
         }
@@ -67,7 +67,7 @@ class AddBook extends Component {
                 </div>
                 <div className="field">
                     <label>Author name:</label>
-                    <select onChange={this.onChange} name="authorId">
+                    <select onChange={this.onChange} value={this.state.authorId} name="authorId">
                         {this.displayAuthors()}
                     </select>
                 </div>
