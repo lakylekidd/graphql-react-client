@@ -10,7 +10,7 @@ class AddBook extends Component {
         this.state = {
             name: '',
             genre: '',
-            authorId: 0
+            authorId: ''
         }
     }
 
@@ -34,7 +34,7 @@ class AddBook extends Component {
             this.setState({
                 name: '',
                 genre: '',
-                authorId: 0
+                authorId: ''
             });
         });
     }
@@ -44,10 +44,10 @@ class AddBook extends Component {
         const data = this.props.authors;
         if (data.loading) {
             return <option>Loading authors...</option>
-        } else {
+        } else if (data.authors) {
             return data.authors.map(author => {
                 return (
-                    <option key={author.id}>{author.name}</option>
+                    <option value={author.id} key={author.id}>{author.name}</option>
                 )
             })
         }
@@ -59,15 +59,16 @@ class AddBook extends Component {
             <form className="add-book" onSubmit={this.submitForm}>
                 <div className="field">
                     <label>Book name:</label>
-                    <input onChange={this.onChange} name="name" type="text" />
+                    <input onChange={this.onChange} value={this.state.name} name="name" type="text" />
                 </div>
                 <div className="field">
                     <label>Genre:</label>
-                    <input onChange={this.onChange} name="genre" type="text" />
+                    <input onChange={this.onChange} value={this.state.genre} name="genre" type="text" />
                 </div>
                 <div className="field">
                     <label>Author name:</label>
                     <select onChange={this.onChange} value={this.state.authorId} name="authorId">
+                        <option value="">--select author--</option>
                         {this.displayAuthors()}
                     </select>
                 </div>

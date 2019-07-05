@@ -39,7 +39,7 @@ class BookList extends Component {
                     <h2>Billy's Reading List</h2>
                     {data.loading && "Loading books..."}
                     {
-                        !data.loading &&
+                        data.books &&
                         <ul className="books">
                             {
                                 this.renderBook(data.books)

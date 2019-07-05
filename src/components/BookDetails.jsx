@@ -18,7 +18,9 @@ class BookDetails extends Component {
             <div className="book-details">
                 <h2>{book.name}</h2>
                 <p><i>genre:</i>"{book.genre}"</p>
-                <p><i>author:</i>"{book.author.name}"</p>
+                {
+                    book.author && <p><i>author:</i>"{book.author.name}"</p>
+                }
                 <p>All books by this author:</p>
                 <ul className="other-books">
                     {
