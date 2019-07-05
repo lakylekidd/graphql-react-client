@@ -1,0 +1,12 @@
+form.add-book {
+    background: rgb(185, 185, 221);
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 20px;
+}
+form.add-book div.field {
+    display: flex;
+}
+form.add-book div.field > * {
+    flex: 1;
+}

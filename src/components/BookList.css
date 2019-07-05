@@ -1,0 +1,24 @@
+div.books-list {
+    display:flex;
+    justify-content: space-between
+}
+
+div.books-list > div > ul {
+    list-style-type: none;
+    padding: 0;
+    width: 300px;
+}
+div.books-list > div > ul > li {
+    font-size: 20px;
+    margin: 5px 2px;
+    padding: 5px;
+    background-color: rgb(103, 103, 129);
+    color: white;
+    transition: 0.1s linear;
+}
+div.books-list > div > ul > li:hover,
+div.books-list > div > ul > li:active {
+    background-color: rgb(103, 103, 129);
+    transform: scale(1.1);
+    cursor: pointer;
+}

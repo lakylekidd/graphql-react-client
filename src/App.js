@@ -9,7 +9,7 @@ import AddBook from './components/AddBook';
 
 // Setup Apollon Client
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
+  uri: 'http://localhost:4000/graphql'
 });
 
 class App extends Component {
@@ -17,9 +17,8 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <h1>Billy's Reading List</h1>
-          <BookList />
           <AddBook />
+          <BookList />
         </div>
       </ApolloProvider>
     );

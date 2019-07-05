@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getBooksQuery } from './../queries/queries';
+import "./BookList.css";
+
+// Import components
+import BookDetails from './BookDetails';
 
 class BookList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: null
+        }
+    }
+
+    selectBook = (id) => {
+        this.setState({
+            selected: id
+        })
+    }
 
     // Render each book individually
     renderBook = (books) => {
         return books.map(book => {
             return (
-                <li key={book.id}>{book.name}</li>
+                <li onClick={() => this.selectBook(book.id)} key={book.id}>{book.name}</li>
             )
         })
     }
@@ -17,16 +34,20 @@ class BookList extends Component {
         // Retrieve the books
         const data = this.props.data;
         return (
-            <div>
-                {data.loading && "Loading books..."}
-                {
-                    !data.loading &&
-                    <ul id="book-list">
-                        {
-                            this.renderBook(data.books)
-                        }
-                    </ul>
-                }
+            <div className="books-list">
+                <div>
+                    <h2>Billy's Reading List</h2>
+                    {data.loading && "Loading books..."}
+                    {
+                        !data.loading &&
+                        <ul className="books">
+                            {
+                                this.renderBook(data.books)
+                            }
+                        </ul>
+                    }
+                </div>
+                <BookDetails bookId={this.state.selected} />
             </div>
         )
     }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
-import { getAuthorsQuery, addBookMutation } from './../queries/queries';
+import { getAuthorsQuery, addBookMutation, getBooksQuery } from './../queries/queries';
 import "./AddBook.css";
-
-
 
 class AddBook extends Component {
 
@@ -29,7 +27,9 @@ class AddBook extends Component {
                 name: this.state.name,
                 genre: this.state.genre,
                 authorId: this.state.authorId
-            }
+            },
+            // This will refetch all queries stated bellow
+            refetchQueries: [{ query: getBooksQuery }]
         }).then(x => {
             this.setState({
                 name: '',
@@ -56,7 +56,7 @@ class AddBook extends Component {
     render() {
         // Render form
         return (
-            <form id="add-book" onSubmit={this.submitForm}>
+            <form className="add-book" onSubmit={this.submitForm}>
                 <div className="field">
                     <label>Book name:</label>
                     <input onChange={this.onChange} name="name" type="text" />
