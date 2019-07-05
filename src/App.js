@@ -7,9 +7,12 @@ import './App.css';
 import BookList from './components/BookList';
 import AddBook from './components/AddBook';
 
-// Setup Apollon Client
+// Retrieve endpoint
+const endpoint = process.env.GRAPHQL_ENDPOINT || 'http://localhost:4000/graphql';
+
+// Setup Apollon Client and use he end
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
+  uri: endpoint
 });
 
 class App extends Component {
